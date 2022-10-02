@@ -1,0 +1,69 @@
+type Query {
+  pokemons(
+    paginationOptions: PaginationOptions
+    sortOptions: SortOptions
+    filterOptions: FilterOptions
+  ): PokemonsResponse
+  pokemon(id: ID!): Pokemon
+}
+
+type Mutation {
+  deletePokemon(id: Int!): Pokemon
+  createCustom(pokemonFields: CreateCustomPokemon): Pokemon
+}
+
+type Pokemon {
+  id: ID!
+  name: String!
+  height: Int!
+  weight: Int!
+  image: String!
+  is_custom: Boolean!
+}
+
+type PokemonsResponse {
+  count: Int!
+  pokemons: [Pokemon]
+}
+
+input PaginationOptions {
+  offset: Int
+  limit: Int!
+}
+
+enum SortDirection {
+  asc
+  desc
+}
+
+enum SortField {
+  name
+  height
+  weight
+}
+
+input SortOptions {
+  fieldId: SortField!
+  sort: SortDirection!
+}
+
+input FilterOptions {
+  name: String
+  height: RangeFilter
+  weight: RangeFilter
+}
+
+input RangeFilter {
+  gt: Int
+  lt: Int
+  gte: Int
+  lte: Int
+  eq: Int
+}
+
+input CreateCustomPokemon {
+  name: String!
+  height: Int!
+  weight: Int!
+  image: String!
+}
