@@ -19,6 +19,7 @@ export class PokemonsResolver {
     return await this.pokemonsService.getAll(pagination, sort, filterOptions);
   }
 
+  @Public()
   @Query()
   public async pokemon(@Args('id') id: string): Promise<Pokemon | null> {
     return await this.pokemonsService.getOne(id);
